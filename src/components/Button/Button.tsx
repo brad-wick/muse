@@ -1,60 +1,43 @@
-import React from 'react'
-import { Button } from 'react-aria-components'
+import {
+  composeRenderProps,
+  Button as RACButton,
+  ButtonProps as RACButtonProps,
+} from 'react-aria-components'
+import { tv } from 'tailwind-variants'
+import { focusRing } from '../utils'
 
-export interface ButtonProps {
-  /** Type of button? */
-  type?: 'primary' | 'secondary'
-  /** What background color to use */
-  backgroundColor?: string
-  /** How large should the button be? */
-  size?: 'small' | 'medium' | 'large'
-  /** Button contents */
-  label: string
-  /** RAC click handler */
-  onPress?: () => void
+export interface ButtonProps extends RACButtonProps {
+  variant?: 'primary' | 'secondary' | 'destructive' | 'icon'
 }
 
-export default function ButtonWrapper({
-  type = 'primary',
-  size = 'medium',
-  backgroundColor,
-  label,
-  ...props
-}: ButtonProps) {
-  const [isPressed, setIsPressed] = React.useState(false)
+const button = tv({
+  extend: focusRing,
+  base: 'px-5 py-2 text-sm text-center transition rounded-lg border border-black/10 dark:border-white/10 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)] dark:shadow-none cursor-default',
+  variants: {
+    variant: {
+      // primary: 'bg-blue-600 hover:bg-blue-700 pressed:bg-blue-800 text-white',
+      primary: 'bg-blue-600 hover:scale-105 pressed:scale-95 text-white',
+      secondary:
+        'bg-gray-100 hover:bg-gray-200 pressed:bg-gray-300 text-gray-800 dark:bg-zinc-600 dark:hover:bg-zinc-500 dark:pressed:bg-zinc-400 dark:text-zinc-100',
+      destructive: 'bg-red-700 hover:bg-red-800 pressed:bg-red-900 text-white',
+      icon: 'border-0 p-1 flex items-center justify-center text-gray-600 hover:bg-black/[5%] pressed:bg-black/10 dark:text-zinc-400 dark:hover:bg-white/10 dark:pressed:bg-white/20 disabled:bg-transparent',
+    },
+    isDisabled: {
+      true: 'bg-gray-100 dark:bg-zinc-800 text-gray-300 dark:text-zinc-600 forced-colors:text-[GrayText] border-black/5 dark:border-white/5',
+    },
+  },
+  defaultVariants: {
+    variant: 'primary',
+  },
+})
 
-  const sizeClasses = {
-    small: 'py-2 px-4 text-sm',
-    medium: 'py-3 px-6 text-base',
-    large: 'py-4 px-8 text-lg',
-  }
-
-  const transitionClasses = {
-    primary: ' active:scale-95 transition-transform ease-in-out duration-300',
-    secondary:
-      'hover:scale-105 active:scale-95 hover:border hover:border-white transition-transform ease-in-out duration-300',
-  }
-
-  const typeClasses = {
-    primary:
-      'bg-[#747474] bg-opacity-5 border-2 border-white border-opacity-20 text-white font-semibold',
-    secondary: 'bg-transparent text-white font-normal',
-  }
-
+export function Button(props: ButtonProps) {
   return (
-    <Button
-      onPress={() => setIsPressed(true)}
-      className={[
-        'rounded-xl focus:outline-none',
-        sizeClasses[size],
-        typeClasses[type],
-        transitionClasses[type],
-        isPressed ? 'scale-95' : '',
-      ].join(' ')}
-      style={{ backgroundColor }}
+    <RACButton
       {...props}
-    >
-      {label}
-    </Button>
+      className={composeRenderProps(props.className, (className, renderProps) =>
+        button({ ...renderProps, variant: props.variant, className })
+      )}
+    />
   )
 }
