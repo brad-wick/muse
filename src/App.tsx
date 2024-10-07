@@ -1,11 +1,12 @@
+import Logo from './components/Logo/Logo'
 import './index.css'
+
+import museLogo from './assets/muse-logo-horizontal.svg'
 
 function App() {
   return (
     <>
-      <button className='p-3 rounded-xl bg-red-500 hover:scale-105 active:scale-95 transition-transform ease-in-out duration-300'>
-        Press me
-      </button>
+      <img src={museLogo} alt='' />
     </>
   )
 }
