@@ -5,6 +5,7 @@ export default {
   component: Button,
   parameters: {
     layout: 'centered',
+    actions: { argTypesRegex: '^on.*' },
   },
   tags: ['autodocs'],
   argTypes: {

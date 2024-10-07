@@ -1,13 +1,15 @@
-import Logo from './components/Logo/Logo'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import LandingPage from './pages/landing-page/landing-page'
 import './index.css'
-
-import museLogo from './assets/muse-logo-horizontal.svg'
 
 function App() {
   return (
-    <>
-      <img src={museLogo} alt='' />
-    </>
+    <Router>
+      <Routes>
+        {/* Ruta para la página inicial */}
+        <Route path='/' element={<LandingPage />} />
+      </Routes>
+    </Router>
   )
 }
 
