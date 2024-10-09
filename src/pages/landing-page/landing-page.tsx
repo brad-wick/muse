@@ -1,17 +1,20 @@
-import NavBarLanding from '../../components/NavBar/NavBarLanding'
+import NavBar from '../../components/NavBar/NavBar'
 
 export default function LandingPage() {
   return (
-    <section className='bg-[#171717]'>
-      <header>
-        <NavBarLanding />
+    <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+      <header className='flex items-center'>
+        <NavBar />
       </header>
-      <main className=''>
-        {/* <section>
-          <h1 className='text-3xl font-bold'>Welcome to the Landing Page</h1>
-          <p>Here is some content for the landing page.</p>
-        </section> */}
-      </main>
-    </section>
+
+      <main className='my-8 bg-red-500'>Main section</main>
+
+      <footer className='bg-gray-800 text-white py-4'>
+        <p className='text-center'>
+          © {new Date().getFullYear()} Mi Sitio Web. Todos los derechos
+          reservados.
+        </p>
+      </footer>
+    </div>
   )
 }

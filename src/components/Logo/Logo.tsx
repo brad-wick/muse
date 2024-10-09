@@ -1,4 +1,4 @@
-import MuseHorizontal from '../../assets/muse-logo-horizontal.svg?react'
+import MuseHorizontal from '../../assets/muse-white.svg?react'
 
 export default function Logo() {
   return <MuseHorizontal className='max-h-[130px]' />
